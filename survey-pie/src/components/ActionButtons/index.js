@@ -26,7 +26,6 @@ function ActionButtons({ questionLength, step }) {
       ) : (
         <button
           onClick={() => {
-            console.log('next');
             navigate(`${step + 1}`);
           }}
         >
