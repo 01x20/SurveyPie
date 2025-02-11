@@ -2,6 +2,5 @@
   "singleQuote": true,
   "semi": true,
   "tabWidth": 2,
-  "trailingComma": "all",
-  "eslintIntegration": true
+  "trailingComma": "all"
 }
