@@ -1,14 +1,9 @@
-import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
 
-import testAtom from '../../stores/test/atom';
-
 function CompletionPage() {
-  const test = useAtomValue(testAtom);
-  console.log(test);
   return (
     <>
-      <CompletionPageWrapper>{test.key}</CompletionPageWrapper>
+      <CompletionPageWrapper>CompletionPage</CompletionPageWrapper>
     </>
   );
 }
