@@ -1,16 +1,14 @@
 import { useAtomValue } from 'jotai';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import questionsState from '../../stores/questions/atom';
+import useStep from '../../hooks/useStep';
+import questionsLengthState from '../../stores/questions/questionsLengthState';
 import Button from '../Button';
 
 function ActionButtons() {
-  const params = useParams();
-
-  const step = parseInt(params.step);
-  const questions = useAtomValue(questionsState);
-  const questionsLength = questions.length;
+  const step = useStep();
+  const questionsLength = useAtomValue(questionsLengthState);
 
   const isLast = questionsLength - 1 === step;
   const navigate = useNavigate();
