@@ -11,8 +11,6 @@ function QuestionBox() {
   const [answer, setAnswer] = useCurrentAnswer();
   const question = useCurrentQuestion(); //undefined
 
-  console.log('QuestionBox', question);
-
   return (
     <QuestionBoxWrapper>
       <Title>{question.title}</Title>
