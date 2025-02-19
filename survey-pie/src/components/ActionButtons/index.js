@@ -4,23 +4,24 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import useAnswers from '../../hooks/useAnswers';
+import useRequiredOption from '../../hooks/useRequiredOption';
 import useStep from '../../hooks/useStep';
 import useSurveyId from '../../hooks/useSurveyId';
 import postAnswers from '../../services/postAnswers';
-import questionsLengthState from '../../stores/survey/questionsLengthState';
+import questionLengthState from '../../stores/survey/questionLengthState';
 import Button from '../Button';
 
 function ActionButtons() {
   const step = useStep();
   const surveyId = useSurveyId();
-  const answers = useAnswers();
+  const [answers, setAnswers] = useAnswers();
   const [isPosting, setIsPosting] = useState(false);
-  const questionsLength = useAtomValue(questionsLengthState);
-
-  console.log(questionsLength);
+  const questionsLength = useAtomValue(questionLengthState);
+  const isRequired = useRequiredOption();
 
   const isLast = questionsLength - 1 === step;
   const navigate = useNavigate();
+  const isBlockToNext = isRequired ? !answers[step]?.length : false;
 
   return (
     <ActionButtonsWrapper>
@@ -36,11 +37,12 @@ function ActionButtons() {
       )}
       {isLast ? (
         <Button
-          type="TERTIARY"
+          type="PRIMARY"
           onClick={() => {
             setIsPosting(true);
             postAnswers(surveyId, answers)
               .then(() => {
+                setAnswers([]);
                 navigate(`/done/${surveyId}`);
               })
               .catch((err) => {
@@ -49,7 +51,7 @@ function ActionButtons() {
                 setIsPosting(false);
               });
           }}
-          disabled={isPosting}
+          disabled={isPosting || isBlockToNext}
         >
           {isPosting ? '제출 중입니다...' : '제출'}
         </Button>
@@ -59,6 +61,7 @@ function ActionButtons() {
           onClick={() => {
             navigate(`${step + 1}`);
           }}
+          disabled={isBlockToNext}
         >
           다음
         </Button>

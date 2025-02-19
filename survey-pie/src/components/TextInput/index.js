@@ -9,6 +9,9 @@ function TextInput({ answer = '', setAnswer, options }) {
         setAnswer(e.target.value);
       }}
       placeholder={options.placeholder}
+      {...(options?.max && { maxLength: options?.max })}
+      //{...(options?.max ? { maxLength: options?.max } : null)} 아예 넘겨주지 않음
+      //maxLength={options?.max} undefined로 떨어짐
     />
   );
 }
