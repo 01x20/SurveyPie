@@ -108,8 +108,8 @@ function OptionSection() {
       detailFieldsValue.max = question.options.max;
       detailFieldsValue.placeholder = question.options.placeholder;
     } else if (type === 'select') {
-      detailFieldsValue.max = question.options.max;
       detailFieldsValue.items = question.options.items;
+      detailFieldsValue.max = question.options.max;
     }
 
     form.setFieldsValue({
@@ -154,6 +154,8 @@ function OptionSection() {
                 options,
                 type: question.type,
               };
+
+              console.log(newValues);
 
               dispatch(
                 setQuestion({ index: selectedQuestionId, ...newValues }),
